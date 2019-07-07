@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'alphashop';
+  saluti = 'Benvenuti nel sito Alphashop';
+  titolo2 = 'Seleziona gli articoli da acquistare';
 }
