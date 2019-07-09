@@ -10,8 +10,8 @@ export class LoginComponent implements OnInit {
 
   userid = '';
   password = '';
-  // autenticato = true;
-  consentito = false;
+  autenticato = true;
+  // consentito = false;
   errorMsg = 'Spiacente, la user id o la password sono errati!';
   // infoMsg = 'Accesso consentito';
 
@@ -23,12 +23,12 @@ export class LoginComponent implements OnInit {
 
   gestAut() {
     if (this.userid === 'antonio' && this.password === '123_Stella') {
-      // this.autenticato = true;
+      this.autenticato = true;
       this.route.navigate(['welcome', this.userid]);
-      this.consentito = true;
+      // this.consentito = true;
     } else {
-      // this.autenticato = false;
-      this.consentito = false;
+      this.autenticato = false;
+      // this.consentito = false;
     }
   }
 
