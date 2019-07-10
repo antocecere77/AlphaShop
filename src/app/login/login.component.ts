@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   gestAut() {
-    if (this.userid === 'antonio' && this.password === '123_Stella') {
+    if (this.userid === 'antonio' && this.password === '12345678') {
       this.autenticato = true;
       this.route.navigate(['welcome', this.userid]);
       // this.consentito = true;
