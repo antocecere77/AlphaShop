@@ -24,4 +24,8 @@ export class AuthappService {
   isLogged() {
     return sessionStorage.getItem('Utente') != null ? true : false;
   }
+
+  clearAll() {
+    sessionStorage.removeItem('Utente');
+  }
 }
