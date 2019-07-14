@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SalutiDataService } from '../services/data/saluti-data.service';
 
 @Component({
   selector: 'app-welcome',
@@ -15,10 +16,19 @@ export class WelcomeComponent implements OnInit {
 
   utente = '';
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private salutiSrv: SalutiDataService) { }
 
   ngOnInit() {
     this.utente = this.route.snapshot.params.userid;
   }
 
+  getSaluti() {
+    this.salutiSrv.getSaluti().subscribe(
+      response => this.handleResponse(response)
+    );
+  }
+
+  handleResponse(response) {
+    console.log(response);
+  }
 }
