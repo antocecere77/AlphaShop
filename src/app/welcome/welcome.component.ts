@@ -24,7 +24,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   getSaluti() {
-    this.salutiSrv.getSaluti().subscribe(
+    this.salutiSrv.getSaluti(this.utente).subscribe(
       response => this.handleResponse(response)
     );
   }
