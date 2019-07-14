@@ -15,6 +15,7 @@ export class WelcomeComponent implements OnInit {
   titolo2 = 'Seleziona gli articoli da acquistare';
 
   utente = '';
+  messaggio = '';
 
   constructor(private route: ActivatedRoute, private salutiSrv: SalutiDataService) { }
 
@@ -29,6 +30,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   handleResponse(response) {
+    this.messaggio = response;
     console.log(response);
   }
 }
