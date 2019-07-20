@@ -24,6 +24,8 @@ export class Articoli {
 export class ArticoliComponent implements OnInit {
 
   NumArt = 0;
+  pagina = 1;
+  righe = 10;
   articoli: Articoli[];
 
   /*

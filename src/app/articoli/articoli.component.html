@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let articolo of articoli">
+        <tr *ngFor="let articolo of articoli | paginate: {itemsPerPage: righe, currentPage: pagina}">
             <td>{{articolo.codArt}}</td>
             <td class="text-left">{{articolo.descrizione}}</td>
             <td>{{articolo.um}}</td>
@@ -34,6 +34,12 @@
         </tr>
       </tbody>
     </table>
+    <pagination-controls 
+      (pageChange)="pagina = $event"
+      previousLabel="Precedente"
+      nextLabel="Successivo">
+    </pagination-controls>
+      
   </div>
 </section>
 
