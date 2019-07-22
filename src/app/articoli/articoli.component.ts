@@ -31,6 +31,7 @@ export class ArticoliComponent implements OnInit {
   righe = 10;
 
   filter: string;
+  articolo: Articoli;
   articoli: Articoli[];
 
   /*
@@ -60,19 +61,50 @@ export class ArticoliComponent implements OnInit {
 
   public getArticoli(filter: string) {
 
-    this.articoliService.getArticoli(filter).subscribe(
+    this.articoliService.getArticoliByCodArt(filter).subscribe(
       response => {
 
-        console.log('Ricerchiamo articoli con filtro ' + filter);
+        this.articoli = [];
+        console.log('Ricerchiamo articoli per codart con filtro ' + filter);
 
-        this.articoli = response;
-        console.log(this.articoli);
+        this.articolo = response;
+        console.log(this.articolo);
+
+        this.articoli.push(this.articolo);
 
         this.NumArt = this.articoli.length;
         console.log(this.articoli.length);
+      },
+      error => {
+        console.log(error.error.messaggio);
+        console.log('Ricerchiamo articoli per ean con filtro ' + filter);
+
+        this.articoliService.getArticoliByEan(filter).subscribe(
+          response => {
+            this.articoli = [];
+            this.articolo = response;
+            console.log(this.articolo);
+
+            this.articoli.push(this.articolo);
+
+            this.NumArt = this.articoli.length;
+            console.log(this.articoli.length);
+          },
+          error2 => {
+            console.log(error.error.messaggio);
+            console.log('Ricerchiamo articoli per descrizione con filtro ' + filter);
+            this.articoliService.getArticoliByDescription(filter).subscribe(
+              response => {
+                this.articoli = response;
+                console.log(this.articoli);
+
+                this.NumArt = this.articoli.length;
+                console.log(this.articoli.length);
+              }
+            );
+          }
+        );
       }
-
     );
-
   }
 }
