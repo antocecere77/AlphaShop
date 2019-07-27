@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Articoli } from '../articoli/articoli.component';
+import { Articoli, ApiMsg } from '../articoli/articoli.component';
 import { ArticoliDataService } from '../services/data/articoli-data.service';
 
 @Component({
@@ -12,6 +12,9 @@ export class NewartComponent implements OnInit {
 
   codArt = '';
   articolo: Articoli;
+  Conferma: string;
+  Errore: string;
+  apiMsg: ApiMsg;
 
   Iva = [
     {id: 22,
@@ -103,9 +106,13 @@ export class NewartComponent implements OnInit {
     this.articoliService.updArticolo(this.articolo).subscribe(
       response => {
         console.log(response);
+        this.apiMsg = response;
+        this.Conferma = this.apiMsg.message;
       },
       error => {
-        console.log(error.error.message);
+        console.log(error);
+        console.log(error.error.messaggio);
+        this.Errore = error.error.messaggio;
       }
     );
   }

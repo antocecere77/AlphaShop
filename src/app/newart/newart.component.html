@@ -8,6 +8,12 @@
         <span class="caption-subject bold uppercase"> Dati Articolo</span>
       </div>
     </div>
+    <div class="alert alert-success" *ngIf='Conferma'>
+      {{Conferma}}
+    </div>
+    <div class="alert alert-danger" *ngIf='Errore'>
+        {{Errore}}
+      </div>
     <div *ngIf='articolo' class="portlet-body form">
       <div class="form-body">
           <div class="form-group">
