@@ -1,6 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { ArticoliDataService } from '../services/data/articoli-data.service';
+import { Router } from '@angular/router';
 
 export class Articoli {
 
@@ -53,7 +55,7 @@ export class ArticoliComponent implements OnInit {
   ]
   */
 
-  constructor(private route: ActivatedRoute, private articoliService: ArticoliDataService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private articoliService: ArticoliDataService) { }
 
   ngOnInit() {
 
@@ -66,6 +68,7 @@ export class ArticoliComponent implements OnInit {
   }
 
   refresh() {
+    this.messaggio = '';
     this.getArticoli(this.filter);
   }
 
@@ -123,11 +126,16 @@ export class ArticoliComponent implements OnInit {
     this.articoliService.delArticoloByCodArt(CodArt).subscribe(
       response => {
         console.log(response);
+        this.refresh();
         this.apiMsg = response;
         this.messaggio = this.apiMsg.message;
-        this.refresh();
       }
     );
+  }
+
+  Modifica(CodArt: string) {
+    console.log(`Modifica articolo ${CodArt}`);
+    this.router.navigate(['newart', CodArt]);
   }
 
 }
