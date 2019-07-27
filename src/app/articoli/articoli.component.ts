@@ -15,7 +15,14 @@ export class Articoli {
     public data: Date
 
   ) { }
+}
 
+export class ApiMsg {
+
+  constructor(
+    public code: string,
+    public message: string
+  ) {}
 }
 
 @Component({
@@ -33,6 +40,9 @@ export class ArticoliComponent implements OnInit {
   filter: string;
   articolo: Articoli;
   articoli: Articoli[];
+
+  apiMsg: ApiMsg;
+  messaggio: string;
 
   /*
   articoli = [
@@ -107,4 +117,17 @@ export class ArticoliComponent implements OnInit {
       }
     );
   }
+
+  Elimina(CodArt: string) {
+    console.log(`Eliminazione articolo ${CodArt}`);
+    this.articoliService.delArticoloByCodArt(CodArt).subscribe(
+      response => {
+        console.log(response);
+        this.apiMsg = response;
+        this.messaggio = this.apiMsg.message;
+        this.refresh();
+      }
+    );
+  }
+
 }
