@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'index', component: LoginComponent},
   {path: 'welcome/:userid', component: WelcomeComponent, canActivate: [RouteGuardService]},
   {path: 'articoli', component: ArticoliComponent, canActivate: [RouteGuardService]},
-  {path: 'newart/:codart', component: NewartComponent, canActivate: [RouteGuardService]},
+  {path: 'newart/:codArt', component: NewartComponent, canActivate: [RouteGuardService]},
   {path: 'logout', component: LogoutComponent},
   {path: '**', component: ErrorComponent}
 ];

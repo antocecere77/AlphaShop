@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export class Articoli {
 
   constructor(
-    public codart: string,
+    public codArt: string,
     public descrizione: string,
     public um: string,
     public pzcart: number,

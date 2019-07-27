@@ -10,14 +10,84 @@ import { ArticoliDataService } from '../services/data/articoli-data.service';
 })
 export class NewartComponent implements OnInit {
 
-  CodArt = '';
+  codArt = '';
   articolo: Articoli;
+
+  Iva = [
+    {id: 22,
+    descrizione: 'Iva 22%',
+    aliquota: 22},
+    {id: 10,
+      descrizione: 'Iva 10%',
+      aliquota: 10},
+    {id: 4,
+    descrizione: 'Iva 4%',
+    aliquota: 4},
+    {id: 0,
+      descrizione: 'Iva Esente',
+      aliquota: 0}
+  ];
+
+  FamAssort = [
+    {
+      id: -1,
+      descrizione: 'NON DISPONIBILE'
+    },
+    {
+      id: 1,
+      descrizione: 'DROGHERIA ALIMENTARE'
+    },
+    {
+      id: 10,
+      descrizione: 'DROGHERIA CHIMICA'
+    },
+    {
+      id: 15,
+      descrizione: 'BANCO TAGLIO'
+    },
+    {
+      id: 16,
+      descrizione: 'GASTRONOMIA'
+    },
+    {
+      id: 17,
+      descrizione: 'PASTECCERIA'
+    },
+    {
+      id: 20,
+      descrizione: 'LIBERO SERVIZIO'
+    },
+    {
+      id: 25,
+      descrizione: 'PANE'
+    },
+    {
+      id: 40,
+      descrizione: 'SURGELATI'
+    },
+    {
+      id: 50,
+      descrizione: 'ORTOFRUTTA'
+    },
+    {
+      id: 60,
+      descrizione: 'MACELLERIA'
+    },
+    {
+      id: 70,
+      descrizione: 'PESCHERIA'
+    },
+    {
+      id: 90,
+      descrizione: 'EXTRA ALIMENTARI'
+    }
+  ];
 
   constructor(private route: ActivatedRoute, private articoliService: ArticoliDataService) { }
 
   ngOnInit() {
-    this.CodArt = this.route.snapshot.params.codart;
-    this.articoliService.getArticoliByCodArt(this.CodArt).subscribe(
+    this.codArt = this.route.snapshot.params.codArt;
+    this.articoliService.getArticoliByCodArt(this.codArt).subscribe(
       response => {
         this.articolo = response;
         console.log(this.articolo);
@@ -26,6 +96,10 @@ export class NewartComponent implements OnInit {
         console.log(error.error.message);
       }
     );
+  }
+
+  salva() {
+    console.log('Save item');
   }
 
 }
