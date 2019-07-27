@@ -100,6 +100,14 @@ export class NewartComponent implements OnInit {
 
   salva() {
     console.log('Save item');
+    this.articoliService.updArticolo(this.articolo).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error.error.message);
+      }
+    );
   }
 
 }

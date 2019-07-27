@@ -28,4 +28,8 @@ export class ArticoliDataService {
   delArticoloByCodArt(codart: string) {
     return this.httpClient.delete<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/elimina/${codart}`);
   }
+
+  updArticolo(articolo: Articoli) {
+    return this.httpClient.put<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/modifica`, articolo);
+  }
 }
