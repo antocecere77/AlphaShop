@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Articoli, ApiMsg, FamAss, Iva } from '../articoli/articoli.component';
 import { ArticoliDataService } from '../services/data/articoli-data.service';
 
@@ -15,6 +15,7 @@ export class NewartComponent implements OnInit {
   Conferma: string;
   Errore: string;
   apiMsg: ApiMsg;
+  IsModifica = false;
 
   Iva = [
     {id: 22,
@@ -86,7 +87,7 @@ export class NewartComponent implements OnInit {
     }
   ];
 
-  constructor(private route: ActivatedRoute, private articoliService: ArticoliDataService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private articoliService: ArticoliDataService) { }
 
   ngOnInit() {
     this.codArt = this.route.snapshot.params.codArt;
@@ -94,6 +95,8 @@ export class NewartComponent implements OnInit {
     this.articolo = new Articoli('', '', '', 0, 0, 0, '1 ', new Date(), new FamAss(1, ''), new Iva(22, '', 22));
 
     if (this.codArt !== '-1') {
+
+      this.IsModifica = true;
       this.articoliService.getArticoliByCodArt(this.codArt).subscribe(
         response => {
           this.articolo = response;
@@ -103,12 +106,17 @@ export class NewartComponent implements OnInit {
           console.log(error.error.message);
         }
       );
+    } else {
+      this.IsModifica = false;
     }
   }
 
   salva() {
 
-    if (this.codArt === '-1') {
+    this.Conferma = '';
+    this.Errore = '';
+
+    if (!this.IsModifica) {
       console.log('Insert item');
       this.articoliService.insArticolo(this.articolo).subscribe(
         response => {
@@ -129,6 +137,7 @@ export class NewartComponent implements OnInit {
           console.log(response);
           this.apiMsg = response;
           this.Conferma = this.apiMsg.message;
+          this.router.navigate(['newart', this.articolo.codArt]);
         },
         error => {
           console.log(error);
@@ -137,7 +146,10 @@ export class NewartComponent implements OnInit {
         }
       );
     }
+  }
 
+  abort() {
+    this.router.navigate(['articoli', this.codArt]);
   }
 
 }

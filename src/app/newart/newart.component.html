@@ -19,7 +19,7 @@
       <div class="form-body">
           <div class="form-group">
               <label for="codArt">Codice Articolo:</label>
-              <input name="codArt" [(ngModel)]="articolo.codArt" type="text" class="form-control" 
+              <input name="codArt" [(ngModel)]="articolo.codArt" type="text" class="form-control" [disabled]="IsModifica"
                 placeholder="Codice Articolo" required minlength="5" maxlength="30" #codice="ngModel"/>
                 <span style="color:red" *ngIf="codice.dirty && codice.invalid">
                   Il codice articolo deve essere compreso tra 5 e 30 caratteri
@@ -97,6 +97,10 @@
 
           <button type="submit" id="btnAdd" class="btn btn-primary form-buttons" [disabled]="artForm.invalid">
               <i class="oi oi-pencil" aria-hidden="true"></i>  Salva
+          </button>
+
+          <button  id="btnAbort" class="btn btn-warning form-buttons" (click) = abort() >
+              <i class="oi oi-x" aria-hidden="true"></i>  Annulla
           </button>
 
       </div>
