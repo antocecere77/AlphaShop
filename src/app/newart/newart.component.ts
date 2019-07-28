@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Articoli, ApiMsg } from '../articoli/articoli.component';
+import { Articoli, ApiMsg, FamAss, Iva } from '../articoli/articoli.component';
 import { ArticoliDataService } from '../services/data/articoli-data.service';
 
 @Component({
@@ -90,31 +90,54 @@ export class NewartComponent implements OnInit {
 
   ngOnInit() {
     this.codArt = this.route.snapshot.params.codArt;
-    this.articoliService.getArticoliByCodArt(this.codArt).subscribe(
-      response => {
-        this.articolo = response;
-        console.log(this.articolo);
-      },
-      error => {
-        console.log(error.error.message);
-      }
-    );
+
+    this.articolo = new Articoli('', '', '', 0, 0, 0, '1 ', new Date(), new FamAss(1, ''), new Iva(22, '', 22));
+
+    if (this.codArt !== '-1') {
+      this.articoliService.getArticoliByCodArt(this.codArt).subscribe(
+        response => {
+          this.articolo = response;
+          console.log(this.articolo);
+        },
+        error => {
+          console.log(error.error.message);
+        }
+      );
+    }
   }
 
   salva() {
-    console.log('Save item');
-    this.articoliService.updArticolo(this.articolo).subscribe(
-      response => {
-        console.log(response);
-        this.apiMsg = response;
-        this.Conferma = this.apiMsg.message;
-      },
-      error => {
-        console.log(error);
-        console.log(error.error.messaggio);
-        this.Errore = error.error.messaggio;
-      }
-    );
+
+    if (this.codArt === '-1') {
+      console.log('Insert item');
+      this.articoliService.insArticolo(this.articolo).subscribe(
+        response => {
+          console.log(response);
+          this.apiMsg = response;
+          this.Conferma = this.apiMsg.message;
+        },
+        error => {
+          console.log(error);
+          console.log(error.error.messaggio);
+          this.Errore = error.error.messaggio;
+        }
+      );
+    } else {
+      console.log('Update item');
+      this.articoliService.updArticolo(this.articolo).subscribe(
+        response => {
+          console.log(response);
+          this.apiMsg = response;
+          this.Conferma = this.apiMsg.message;
+        },
+        error => {
+          console.log(error);
+          console.log(error.error.messaggio);
+          this.Errore = error.error.messaggio;
+        }
+      );
+    }
+
   }
 
 }

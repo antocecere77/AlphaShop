@@ -13,10 +13,26 @@ export class Articoli {
     public pzcart: number,
     public peso: number,
     public prezzo: number,
-    public isactive: boolean,
-    public data: Date
+    public idStatoArt: string,
+    public data: Date,
+    public famAssort: FamAss,
+    public iva: Iva
+  ) {}
+}
 
-  ) { }
+export class Iva {
+  constructor(
+    public idIva: number,
+    public descrizione: string,
+    public aliquota: number
+  ) {}
+}
+
+export class FamAss {
+  constructor(
+    public id: number,
+    public descrizione: string
+  ) {}
 }
 
 export class ApiMsg {
