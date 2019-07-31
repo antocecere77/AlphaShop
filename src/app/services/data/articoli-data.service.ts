@@ -13,21 +13,21 @@ export class ArticoliDataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getBasicAuthHeader() {
-    const UserId = 'antonio';
-    const Password = '12345678';
-
-    const retVal = 'Basic ' + window.btoa(UserId + ':' + Password);
-
-    return retVal;
-  }
+  // getBasicAuthHeader() {
+  //  const UserId = 'antonio';
+  //  const Password = '12345678';
+  //
+  //  const retVal = 'Basic ' + window.btoa(UserId + ':' + Password);
+  //
+  //  return retVal;
+  // }
 
   getArticoliByDescription(descrizione: string) {
-    const headers = new HttpHeaders({
-      Authorization: this.getBasicAuthHeader()
-    });
+    // const headers = new HttpHeaders({
+    //  Authorization: this.getBasicAuthHeader()
+    // });
 
-    return this.httpClient.get<Articoli[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`, {headers});
+    return this.httpClient.get<Articoli[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`);
   }
 
   getArticoliByCodArt(codart: string) {
