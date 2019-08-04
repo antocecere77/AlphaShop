@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpRequest, HttpInterceptor, HttpHandler} from '@angular/common/http';
+import { AuthappService } from '../authapp.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,21 +8,22 @@ import {HttpRequest, HttpInterceptor, HttpHandler} from '@angular/common/http';
 export class AuthInterceptService implements HttpInterceptor {
 
 
-  constructor() { }
+  constructor(private BasicAuth: AuthappService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
-    const UserId = 'admin';
-    const Password = '12345678';
-    const AuthHeader = 'Basic ' + window.btoa(UserId + ':' + Password);
+    const AuthToken = this.BasicAuth.getAuthToken();
+    const User = this.BasicAuth.loggedUser();
 
-    req = req.clone({
-      setHeaders :
-      {
-        Authorization: AuthHeader
-      }
-    });
+    if (AuthToken && User) {
 
+      req = req.clone({
+        setHeaders :
+        {
+          Authorization: AuthToken
+        }
+      });
+    }
     return next.handle(req);
   }
 

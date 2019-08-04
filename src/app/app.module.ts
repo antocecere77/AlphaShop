@@ -38,11 +38,9 @@ import { AuthInterceptService } from './services/http/auth-intercept.service';
     NgxPaginationModule
   ],
   providers: [
-    /*
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptService, multi: true
     }
-    */
   ],
   bootstrap: [AppComponent]
 })

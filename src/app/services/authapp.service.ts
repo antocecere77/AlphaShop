@@ -34,14 +34,17 @@ export class AuthappService {
 
   autenticaService(UserId: string, Password: string) {
 
+    const AuthString = 'Basic ' + window.btoa(UserId + ':' + Password);
+
     const headers = new HttpHeaders(
-      {Authorization: 'Basic ' + window.btoa(UserId + ':' + Password)}
+      {Authorization: AuthString}
     );
 
     return this.httpClient.get<AuthData>(`http://${this.server}:${this.port}/api/articoli/test`, {headers})
       .pipe(map(
         data => {
           sessionStorage.setItem('Utente', UserId);
+          sessionStorage.setItem('AuthToken', AuthString);
           return data;
         }
       ));
@@ -50,6 +53,14 @@ export class AuthappService {
   loggedUser() {
     const utente = sessionStorage.getItem('Utente');
     return (sessionStorage.getItem('Utente') != null) ? utente : '';
+  }
+
+  getAuthToken() {
+    if (this.loggedUser) {
+      return sessionStorage.getItem('AuthToken');
+    } else {
+      return '';
+    }
   }
 
   isLogged() {
