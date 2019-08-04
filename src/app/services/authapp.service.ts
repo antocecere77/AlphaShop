@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import { port, server } from '../app.constants';
 
 export class AuthData {
 
@@ -18,20 +19,6 @@ export class AuthappService {
 
   constructor(private httpClient: HttpClient) { }
 
-  server = 'localhost';
-  port = '5051';
-
-  /*
-  autentica(UserId, Password) {
-    if (UserId === 'antonio' && Password === '12345678') {
-      sessionStorage.setItem('Utente', UserId);
-      return true;
-    } else {
-      return false;
-    }
-  }
-  */
-
   autenticaService(UserId: string, Password: string) {
 
     const AuthString = 'Basic ' + window.btoa(UserId + ':' + Password);
@@ -40,7 +27,7 @@ export class AuthappService {
       {Authorization: AuthString}
     );
 
-    return this.httpClient.get<AuthData>(`http://${this.server}:${this.port}/api/articoli/test`, {headers})
+    return this.httpClient.get<AuthData>(`http://${server}:${port}/api/articoli/test`, {headers})
       .pipe(map(
         data => {
           sessionStorage.setItem('Utente', UserId);
