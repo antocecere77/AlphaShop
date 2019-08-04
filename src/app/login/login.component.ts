@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthappService } from '../services/authapp.service';
+import { AuthJWTService } from '../services/AuthJWTService.';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit {
   autenticato = true;
   errorMsg = 'Spiacente, la user id o la password sono errati!';
 
-  constructor(private route: Router, private BasicAuth: AuthappService) { }
+  constructor(private route: Router, private BasicAuth: AuthJWTService) { }
 
   ngOnInit() {
   }
