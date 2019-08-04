@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  /*
   gestAut() {
     if (this.BasicAuth.autentica(this.userid, this.password)) {
       this.autenticato = true;
@@ -26,6 +27,21 @@ export class LoginComponent implements OnInit {
     } else {
       this.autenticato = false;
     }
+  }
+*/
+
+  gestAuth() {
+    this.BasicAuth.autenticaService(this.userid, this.password).subscribe(
+      data => {
+        console.log(data);
+        this.autenticato = true;
+        this.route.navigate(['welcome', this.userid]);
+      },
+      error => {
+        console.log(error);
+        this.autenticato = false;
+      }
+    );
   }
 
 }

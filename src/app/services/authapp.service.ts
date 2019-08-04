@@ -1,12 +1,27 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {map} from 'rxjs/operators';
+
+export class AuthData {
+
+  constructor(
+    public codice: string,
+    public mesaggio: string
+  ) {}
+
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthappService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
+  server = 'localhost';
+  port = '5051';
+
+  /*
   autentica(UserId, Password) {
     if (UserId === 'antonio' && Password === '12345678') {
       sessionStorage.setItem('Utente', UserId);
@@ -14,6 +29,22 @@ export class AuthappService {
     } else {
       return false;
     }
+  }
+  */
+
+  autenticaService(UserId: string, Password: string) {
+
+    const headers = new HttpHeaders(
+      {Authorization: 'Basic ' + window.btoa(UserId + ':' + Password)}
+    );
+
+    return this.httpClient.get<AuthData>(`http://${this.server}:${this.port}/api/articoli/test`, {headers})
+      .pipe(map(
+        data => {
+          sessionStorage.setItem('Utente', UserId);
+          return data;
+        }
+      ));
   }
 
   loggedUser() {
