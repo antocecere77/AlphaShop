@@ -15,6 +15,7 @@ import { JumbotronComponent } from './jumbotron/jumbotron.component';
 import { LogoutComponent } from './logout/logout.component';
 import { NewartComponent } from './newart/newart.component';
 import { AuthInterceptService } from './services/http/auth-intercept.service';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AuthInterceptService } from './services/http/auth-intercept.service';
     FooterComponent,
     JumbotronComponent,
     LogoutComponent,
-    NewartComponent
+    NewartComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,
